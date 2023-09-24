@@ -1,29 +1,26 @@
-const startBtn = document.querySelector('button[data-start="start"]');
-const stopBtn = document.querySelector('button[data-stop="stop"]');
-const backgroundElem = document.querySelector('body');
-let timerId = null;
 
 function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-}
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
+  }
 
-function disableBtn() {
-  startBtn.disabled = true;
-}
+//ia butonul start
+const startBtn = document.querySelector("button[data-start]");
+const stopBtn = document.querySelector("button[data-stop]");
+let timer = null;
 
-function enableBtn() {
-  startBtn.disabled = false;
-}
+// add event la click sa pornesca functia de schimbat culorile
 
-startBtn.addEventListener('click', () => {
-  timerId = setInterval(() => {
-    const randomColor = getRandomHexColor();
-    backgroundElem.style.backgroundColor = randomColor;
-  }, 1000);
-  disableBtn();
+startBtn.addEventListener("click", (event) => {
+   startBtn.setAttribute("disabled","true");
+   const body = document.querySelector("body");
+   timer = setInterval(() => {
+        const randomColor = getRandomHexColor();
+        body.style.backgroundColor = randomColor;
+    }, 1000);
 });
 
-stopBtn.addEventListener('click', () => {
-  clearInterval(timerId);
-  enableBtn();
+stopBtn.addEventListener("click", (event) => {
+    startBtn.removeAttribute("disabled");
+    clearInterval(timer);
 });
+
